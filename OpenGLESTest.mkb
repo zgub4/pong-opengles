@@ -1,0 +1,67 @@
+
+#!/usr/bin/env mkb
+files
+{
+    (source)
+    [source]
+    main.cpp
+    MainGame.cpp
+    ResourceManager.cpp
+    Shaders.cpp
+    Globals.cpp
+    TextureCache.cpp
+    Camera.cpp
+    Texture.cpp
+    SpriteBatch.cpp
+
+    MainGame.h
+    ResourceManager.h
+    Shaders.h
+    Globals.h
+    TextureCache.h
+    Camera.h
+    Texture.h
+    SpriteBatch.h
+    Vertex.h
+
+    Player.cpp
+<<<<<<< HEAD
+    Game.cpp
+    Ball.cpp
+    Scene.cpp
+    SceneManager.cpp
+
+    Player.h
+    Game.h
+    Ball.h
+    Scene.h
+    SceneManager.h
+=======
+    Player.h
+>>>>>>> parent of a102446... import
+}
+
+subprojects
+{
+    iwutil
+    iwgeom
+    iwgl
+    iw2d
+    glm
+}
+
+deployment
+{
+}
+
+options
+{
+    cxx11
+}
+
+assets
+{
+    (data)
+    shaders
+    sprites
+}
