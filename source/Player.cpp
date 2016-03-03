@@ -1,6 +1,7 @@
 #include "Player.h"
 
 #include "SpriteBatch.h"
+#include "Globals.h"
 
 Player::Player()
 {
@@ -21,6 +22,12 @@ void Player::Init(const std::string& filePath, glm::vec2 position)
 
 void Player::Update()
 {
+    for (size_t i = 0; i < S3E_POINTER_TOUCH_MAX; i++)
+    {
+        if (Globals::g_input->TouchMap[i] == true)
+        {
+        }
+    }
 }
 
 void Player::Draw(SpriteBatch& spriteBatch)

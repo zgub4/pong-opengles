@@ -2,9 +2,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Globals.h"
+
 Camera::Camera()
-    : m_screenWidth(0), m_screenHeight(0), m_scale(1.0f), m_needsMatrixUpdate(true),
-    m_cameraMatrix(1.0f), m_orthoMatrix(1.0f), m_position(0.0f, 0.0f)
+    : m_scale(1.0f), m_needsMatrixUpdate(true), m_cameraMatrix(1.0f), m_orthoMatrix(1.0f), m_position(0.0f, 0.0f)
 {
 }
 
@@ -13,11 +14,9 @@ Camera::~Camera()
 {
 }
 
-void Camera::Init(int screenWidth, int screenHeight)
+void Camera::Init()
 {
-    m_screenWidth = screenWidth;
-    m_screenHeight = screenHeight;
-    m_orthoMatrix = glm::ortho(0.0f, (float)m_screenWidth, 0.0f, (float)m_screenHeight);
+    m_orthoMatrix = glm::ortho(0.0f, (float)Globals::ScreenResolution.x, 0.0f, (float)Globals::ScreenResolution.y);
 }
 
 void Camera::Update()
@@ -25,7 +24,7 @@ void Camera::Update()
     if (m_needsMatrixUpdate)
     {
         // Camera translation
-        glm::vec3 translate(-m_position.x + m_screenWidth / 2, -m_position.y + m_screenHeight / 2, 0.0f);
+        glm::vec3 translate(-m_position.x + Globals::ScreenResolution.x / 2, -m_position.y + Globals::ScreenResolution.y / 2, 0.0f);
         m_cameraMatrix = glm::translate(m_orthoMatrix, translate);
 
         // Camera scale
@@ -34,4 +33,11 @@ void Camera::Update()
 
         m_needsMatrixUpdate = false;
     }
+}
+
+void Camera::ConvertScreenToWorld(glm::vec2& mouseCoords)
+{
+    mouseCoords -= glm::vec2(Globals::ScreenResolution.x / 2, Globals::ScreenResolution.y / 2);
+    mouseCoords /= m_scale;
+    mouseCoords += m_position;
 }

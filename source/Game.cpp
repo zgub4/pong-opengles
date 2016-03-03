@@ -6,15 +6,15 @@ Game::Game()
 {
 }
 
-
 Game::~Game()
 {
 }
 
 void Game::Init(const std::string& name)
 {
-    m_playerOne.Init("sprites/player.png", glm::vec2(0.0f, -200.0f));
-    m_playerTwo.Init("sprites/player.png", glm::vec2(0.0f, 200.0f));
+    m_name = name;
+    m_playerOne.Init("sprites/player.png", glm::vec2(0.0f, -700.0f));
+    m_playerTwo.Init("sprites/player.png", glm::vec2(0.0f, 700.0f));
     m_ball.Init("sprites/ball.png", glm::vec2(0.0f, 0.0f));
 }
 

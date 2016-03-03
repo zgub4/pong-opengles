@@ -8,6 +8,9 @@
 
 #include "ResourceManager.h"
 #include "Game.h"
+#include "Menu.h"
+
+#include "Globals.h"
 
 MainGame::MainGame()
 {
@@ -16,7 +19,6 @@ MainGame::MainGame()
 
 MainGame::~MainGame()
 {
-    //delete m_sprite;
     delete m_sceneManager;
     IwGLTerminate();
 }
@@ -39,9 +41,8 @@ bool MainGame::Init()
     }
     
     // Init camera
-    m_screenResolution.x = IwGLGetInt(IW_GL_WIDTH);
-    m_screenResolution.y = IwGLGetInt(IW_GL_HEIGHT);
-    m_camera.Init(m_screenResolution.x, m_screenResolution.y);
+    Globals::ScreenResolution = glm::ivec2(IwGLGetInt(IW_GL_WIDTH), IwGLGetInt(IW_GL_HEIGHT));
+    m_camera.Init();
 
     // Shaders init
     if (!m_shaders.Init("shaders/vertShader.vert", "shaders/fragShader.frag"))
@@ -54,10 +55,7 @@ bool MainGame::Init()
     m_shaders.AddAttribute("vertexUV");
     m_shaders.LinkShaders();
 
-    // Init sprites
-    /*m_sprite = new Sprite();
-    m_sprite->Init(-250.0f, 0.0f, 200, 200);*/
-    //m_player.Init(glm::vec2(0.0f, 0.0f));
+    Globals::g_input = new Input();
 
     m_spriteBatch.Init();
 
@@ -68,6 +66,11 @@ bool MainGame::Init()
 
     m_sceneManager->AddScene(game);
 
+    Menu* menu = new Menu();
+    menu->Init("menu");
+
+    m_sceneManager->AddScene(menu);
+
     return true;
 }
 
@@ -75,18 +78,23 @@ void MainGame::GameLoop()
 {
     while (!s3eDeviceCheckQuitRequest())
     {
-        //Update the input systems
-        s3eKeyboardUpdate();
-        s3ePointerUpdate();
+        // Update the input systems
+        Globals::g_input->Update();
 
+        // Update camera position
         m_camera.Update();
+
+        // Update objects
+        Update();
+
+        // Render objects
         Draw();
     }
 }
 
 void MainGame::Draw()
 {
-    glViewport(0, 0, m_screenResolution.x, m_screenResolution.y);
+    glViewport(0, 0, Globals::ScreenResolution.x, Globals::ScreenResolution.y);
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -119,4 +127,21 @@ void MainGame::Draw()
     m_shaders.Unuse();
 
     IwGLSwapBuffers();
+}
+
+void MainGame::Update()
+{
+    // Process input
+    std::vector <glm::vec2> touches;
+    for (size_t i = 0; i < S3E_POINTER_TOUCH_MAX; i++)
+    {
+        if (Globals::g_input->TouchMap[i] == true)
+        {
+            glm::vec2 touchPos = glm::vec2(s3ePointerGetTouchX(i), s3ePointerGetTouchY(i));
+            m_camera.ConvertScreenToWorld(touchPos);
+            touches.push_back(touchPos);
+            printf("%f   %f\n", touchPos.x, touchPos.y);
+        }
+    }
+    m_sceneManager->UpdateScene();
 }

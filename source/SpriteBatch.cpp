@@ -43,16 +43,16 @@ void SpriteBatch::Draw(glm::vec4 & destRect, glm::vec4 & uvRect, GLuint textureI
     newGlyph->topLeft.SetUV(uvRect.x, uvRect.y);
 
     newGlyph->topRight.color = color;
-    newGlyph->topRight.SetPosition(destRect.x + destRect.w, destRect.y);
-    newGlyph->topRight.SetUV(uvRect.x + uvRect.w, uvRect.y);
+    newGlyph->topRight.SetPosition(destRect.x + destRect.z, destRect.y);
+    newGlyph->topRight.SetUV(uvRect.x + uvRect.z, uvRect.y);
 
     newGlyph->botRight.color = color;
-    newGlyph->botRight.SetPosition(destRect.x + destRect.w, destRect.y + destRect.z);
-    newGlyph->botRight.SetUV(uvRect.x + uvRect.w, uvRect.y + uvRect.z);
+    newGlyph->botRight.SetPosition(destRect.x + destRect.z, destRect.y + destRect.w);
+    newGlyph->botRight.SetUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
 
     newGlyph->botLeft.color = color;
-    newGlyph->botLeft.SetPosition(destRect.x, destRect.y + destRect.z);
-    newGlyph->botLeft.SetUV(uvRect.x, uvRect.y + uvRect.z);
+    newGlyph->botLeft.SetPosition(destRect.x, destRect.y + destRect.w);
+    newGlyph->botLeft.SetUV(uvRect.x, uvRect.y + uvRect.w);
 
     m_glyphs.push_back(newGlyph);
 }

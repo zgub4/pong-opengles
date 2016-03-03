@@ -24,8 +24,8 @@ private:
     bool Init();
     void GameLoop();
 
-
     void Draw();
+    void Update();
 
     /// Member variables
     Shaders     m_shaders;
@@ -35,8 +35,5 @@ private:
     //Player      m_player;
     
     SceneManager* m_sceneManager;
-
-
-    glm::ivec2  m_screenResolution;
 };
 

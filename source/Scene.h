@@ -13,8 +13,10 @@ public:
     virtual void Update();
     virtual void Draw(SpriteBatch& spriteBatch);
 
+    std::string GetName() const { return m_name; }
+
 protected:
-    unsigned int m_nameHash;
+    std::string m_name;
     //bool m_isActive;
 };
 

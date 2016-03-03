@@ -8,8 +8,10 @@ public:
     Camera();
     ~Camera();
 
-    void Init(int screenWidth, int screenHeight);
+    void Init();
     void Update();
+
+    void ConvertScreenToWorld(glm::vec2& mouseCoords);
 
     // Setters
     void SetPosition(const  glm::vec2& position) { m_position = position; m_needsMatrixUpdate = true; }
@@ -21,8 +23,6 @@ public:
     glm::mat4   GetCameraMatrix()   const { return m_cameraMatrix; }
 
 private:
-    int         m_screenWidth;
-    int         m_screenHeight;
     bool        m_needsMatrixUpdate;
     float       m_scale;
     glm::vec2   m_position;

@@ -36,4 +36,12 @@ void SceneManager::RenderScene()
 
 void SceneManager::ChangeCurrentScene(std::string name)
 {
+    for (size_t i = 0; i < m_scenes.size(); i++)
+    {
+        if (m_scenes[i]->GetName() == name)
+        {
+            m_currentScene = m_scenes[i];
+            break;
+        }
+    }
 }
