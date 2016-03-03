@@ -143,5 +143,5 @@ void MainGame::Update()
             printf("%f   %f\n", touchPos.x, touchPos.y);
         }
     }
-    m_sceneManager->UpdateScene();
+    m_sceneManager->UpdateScene(touches);
 }

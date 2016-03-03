@@ -18,16 +18,14 @@ void Player::Init(const std::string& filePath, glm::vec2 position)
     m_position = position;
     Color color(0, 255, 0, 255);
     m_texture = new Texture(200, 50, filePath, color);
+    m_width = m_texture->m_width;
+    m_height = m_texture->m_height;
 }
 
-void Player::Update()
+void Player::Update(const float& direction)
 {
-    for (size_t i = 0; i < S3E_POINTER_TOUCH_MAX; i++)
-    {
-        if (Globals::g_input->TouchMap[i] == true)
-        {
-        }
-    }
+    m_position.x += direction;
+    //printf("Player position: %f    %f\n", m_position.x, m_position.y);
 }
 
 void Player::Draw(SpriteBatch& spriteBatch)

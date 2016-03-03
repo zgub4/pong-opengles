@@ -16,7 +16,7 @@ void Scene::Init(const std::string& name)
 {
 }
 
-void Scene::Update()
+void Scene::Update(const std::vector <glm::vec2>& input)
 {
 }
 

@@ -2,7 +2,9 @@
 
 #include "Vertex.h"
 #include "SpriteBatch.h"
+#include "Player.h"
 
+#include "Globals.h"
 Ball::Ball()
 {
 }
@@ -12,15 +14,53 @@ Ball::~Ball()
 {
 }
 
-void Ball::Init(const std::string& filePath, glm::vec2& position)
+void Ball::Init(const std::string& filePath, int x, int y)
 {
-    m_position = position;
+    m_position = glm::vec2(x, y);
     Color color(255, 255, 255, 255);
     m_texture = new Texture(50, 50, filePath, color);
+    m_direction = glm::vec2(1.0f, 1.0f);
+    m_width = m_texture->m_width;
+    m_height = m_texture->m_height;
 }
 
-void Ball::Update()
+void Ball::Update(Player& p1, Player& p2)
 {
+    // Update ball position
+    m_position += m_direction * 2.0f;
+
+    // Check wall collision
+    if (m_position.x < -Globals::ScreenResolution.x / 2 || m_position.x > Globals::ScreenResolution.x / 2 - m_width)
+        m_direction.x = -m_direction.x;
+    else if (m_position.y < -Globals::ScreenResolution.y / 2 || m_position.y > Globals::ScreenResolution.y / 2 - m_height)
+        m_direction.y = -m_direction.y;
+
+    // Check player collision
+    glm::vec2 p1pos = p1.GetPosition();
+    glm::vec2 p2pos = p2.GetPosition();
+
+    if (m_position.y < 0) // We consider ball is on top half
+    {
+        if (p1pos.y < p2pos.y) // This means player one is the top one
+        {
+            if (m_position.x >= p1pos.x && m_position.x + m_width <= p1pos.x + p1.GetWidth()) // We are good in X axis
+            {
+                if (m_position.y <= p1pos.y + p1.GetHeight() && m_position.y >= p1pos.y)
+                {
+                    m_direction = -m_direction;
+                }
+            }
+        }
+        else // This means player two is the top one
+        {
+
+        }
+    }
+    else // We consider ball is on bottom half
+    {
+
+    }
+    //printf("Ball position: %f   %f\n", m_position.x, m_position.y);
 }
 
 void Ball::Draw(SpriteBatch& spriteBatch)

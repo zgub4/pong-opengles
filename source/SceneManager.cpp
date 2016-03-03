@@ -24,9 +24,9 @@ void SceneManager::RemoveScene(std::string name)
 {
 }
 
-void SceneManager::UpdateScene()
+void SceneManager::UpdateScene(const std::vector <glm::vec2>& input)
 {
-    m_currentScene->Update();
+    m_currentScene->Update(input);
 }
 
 void SceneManager::RenderScene()

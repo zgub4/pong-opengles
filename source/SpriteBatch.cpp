@@ -61,12 +61,11 @@ void SpriteBatch::Render()
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
-    for (auto& i = m_renderBatches.begin(); i != m_renderBatches.end(); i++)
+    for (size_t i = 0; i < m_renderBatches.size(); i++)
     {
-        glBindTexture(GL_TEXTURE_2D, (*i)->m_texture);
-        glDrawArrays(GL_TRIANGLES, (*i)->m_offset, (*i)->m_numVerticies);
+        glBindTexture(GL_TEXTURE_2D, m_renderBatches[i]->m_texture);
+        glDrawArrays(GL_TRIANGLES, m_renderBatches[i]->m_offset, m_renderBatches[i]->m_numVerticies);
     }
-
     glBindVertexArray(0);
 }
 

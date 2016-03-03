@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-
+#include <glm/glm.hpp>
 class Scene;
 class SpriteBatch;
 
@@ -13,7 +13,7 @@ public:
 
     void AddScene(Scene* scene);
     void RemoveScene(std::string name);
-    void UpdateScene();
+    void UpdateScene(const std::vector <glm::vec2>& input);
     void RenderScene();
     void ChangeCurrentScene(std::string name);
 
