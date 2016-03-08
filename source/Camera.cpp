@@ -37,6 +37,7 @@ void Camera::Update()
 
 void Camera::ConvertScreenToWorld(glm::vec2& mouseCoords)
 {
+    mouseCoords.y = Globals::ScreenResolution.y - mouseCoords.y;
     mouseCoords -= glm::vec2(Globals::ScreenResolution.x / 2, Globals::ScreenResolution.y / 2);
     mouseCoords /= m_scale;
     mouseCoords += m_position;

@@ -140,7 +140,7 @@ void MainGame::Update()
             glm::vec2 touchPos = glm::vec2(s3ePointerGetTouchX(i), s3ePointerGetTouchY(i));
             m_camera.ConvertScreenToWorld(touchPos);
             touches.push_back(touchPos);
-            printf("%f   %f\n", touchPos.x, touchPos.y);
+            //printf("%f   %f\n", touchPos.x, touchPos.y);
         }
     }
     m_sceneManager->UpdateScene(touches);

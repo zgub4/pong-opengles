@@ -26,14 +26,14 @@ void Game::Update(const std::vector <glm::vec2>& input)
     // Update players position
     for (size_t i = 0; i < input.size(); i++)
     {
-        if (input[i].y < 0)
+        if (input[i].y > 0)
         {
             if (input[i].x < 0)
                 m_playerOne.Update(LEFT); // Update player to the left
             else
                 m_playerOne.Update(RIGHT); // Update player to the right
         }
-        else if (input[i].y > 0)
+        else if (input[i].y < 0)
         {
             if (input[i].x < 0)
                 m_playerTwo.Update(LEFT); // Update player to the left
