@@ -16,7 +16,7 @@ Player::~Player()
 void Player::Init(const std::string& filePath, glm::vec2 position)
 {
     m_position = position;
-    Color color(0, 255, 0, 255);
+    Color color(0, 0, 0, 255);
     m_texture = new Texture(200, 50, filePath, color);
     m_width = m_texture->m_width;
     m_height = m_texture->m_height;

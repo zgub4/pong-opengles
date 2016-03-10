@@ -13,8 +13,10 @@ public:
     Ball();
     ~Ball();
     void Init(const std::string& filePath, int x, int y);
-    void Update(Player& p1, Player& p2);
+    bool Update(Player& p1, Player& p2);
     void Draw(SpriteBatch& spriteBatch);
+
+    glm::vec2 GetPosition() { return m_position; }
 
 private:
     glm::vec2 m_position;

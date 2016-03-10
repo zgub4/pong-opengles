@@ -5,7 +5,7 @@
 #define RIGHT 5.0f
 #define LEFT -5.0f
 
-Game::Game()
+Game::Game() : m_p1score(0), m_p2score(0)
 {
 }
 
@@ -16,8 +16,8 @@ Game::~Game()
 void Game::Init(const std::string& name)
 {
     m_name = name;
-    m_playerOne.Init("sprites/player.png", glm::vec2(0.0f, 700.0f));
-    m_playerTwo.Init("sprites/player.png", glm::vec2(0.0f, -700.0f));
+    m_playerOne.Init("sprites/player.png", glm::vec2(0.0f, 900.0f));
+    m_playerTwo.Init("sprites/player.png", glm::vec2(0.0f, -950.0f));
     m_ball.Init("sprites/ball.png", 0, 0);
 }
 
@@ -43,7 +43,13 @@ void Game::Update(const std::vector <glm::vec2>& input)
     }
 
     // Update ball
-    m_ball.Update(m_playerOne, m_playerTwo);
+    if (m_ball.Update(m_playerOne, m_playerTwo)) 
+    {
+        if (m_ball.GetPosition().y < 0)
+            m_p1score++;
+        else
+            m_p2score++;
+    }
 }
 
 void Game::Draw(SpriteBatch& spriteBatch)

@@ -19,4 +19,7 @@ private:
     Player m_playerOne;
     Player m_playerTwo;
     Ball   m_ball;
+
+    int m_p1score;
+    int m_p2score;
 };
