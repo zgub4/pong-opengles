@@ -12,6 +12,8 @@
 
 #include "Globals.h"
 
+#include "IwGxFont.h"
+
 MainGame::MainGame()
 {
 
@@ -89,6 +91,8 @@ void MainGame::GameLoop()
 
         // Render objects
         Draw();
+
+        
     }
 }
 
